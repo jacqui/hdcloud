@@ -4,13 +4,16 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "hdcloud_api"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.name = "hdcloud"
+    gem.summary = %Q{A wrapper for interfacing with the HDCloud API}
+    gem.description = %Q{An easy-to-use rubygem for managing jobs, profiles and stores in HDCloud (www.hdcloud.com).}
     gem.email = "jacqui@brighter.net"
-    gem.homepage = "http://github.com/jacqui/hdcloud_api"
+    gem.homepage = "http://github.com/jacqui/hdcloud"
     gem.authors = ["Jacqui Maher"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    gem.add_development_dependency "shoulda", ">= 0"
+    gem.add_development_dependency "httparty", ">= 0"
+    gem.add_development_dependency "mocha", ">= 0"
+    gem.add_development_dependency "fakeweb", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
@@ -47,7 +50,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "hdcloud_api #{version}"
+  rdoc.title = "hdcloud #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
