@@ -1,6 +1,8 @@
-= hdcloud_api
+= HDCloud
 
-Description goes here.
+A wrapper for interfacing with the HDCloud API
+
+Note: this is a work-in-progress, use at will!
 
 == Note on Patches/Pull Requests
  
