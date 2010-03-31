@@ -3,29 +3,24 @@ require File.dirname(__FILE__) + '/../helper'
 class BaseTest < Test::Unit::TestCase
   context "base" do
     setup do
-      HDCloud::Base.any_instance.stubs(:hd_cloud_stores).returns({:source_id => 3, :destination_id => 4})
+      HDCloud::Base.any_instance.stubs(:hd_cloud).returns({:key => 'foo', :pass => 'bar', :source_id => 3, :destination_id => 4})
     end
 
-    should "accept source_id and destination_id as parameters" do
-      hd = HDCloud::Base.new('foo', 'bar', 1, 2)
-      assert_equal 1, hd.source_id
-      assert_equal 2, hd.destination_id
-    end
-
-    should "use the constant otherwise" do
-      hd = HDCloud::Base.new('foo', 'bar')
-      assert_equal 3, hd.source_id
-      assert_equal 4, hd.destination_id
+    should "set default params, format, basic_auth" do
+      hd = HDCloud::Base.new
+      assert hd.class.default_options.has_key?(:basic_auth)
+      assert hd.class.default_options.has_key?(:default_params)
+      assert hd.class.default_options[:default_params].has_key?("job[source_id]")
     end
 
     should "login with key and pass" do
       HDCloud::Base.expects(:basic_auth).with('foo', 'bar')
-      HDCloud::Base.new('foo', 'bar')
+      HDCloud::Base.new
     end
 
     context "once initialized" do
       setup do
-        @hd = HDCloud::Base.new('foo', 'bar', 1, 2)
+        @hd = HDCloud::Base.new
       end
 
       context "#create_job" do

@@ -1,20 +1,20 @@
 module HDCloud
   class Base
-    attr_accessor :source_id, :destination_id
-
     include HTTParty
     base_uri 'hdcloud.com/api/v1'
     format :json
 
-    def hd_cloud_stores
-      HD_CLOUD_STORES || {}
+    def self.hd_cloud
+      self.new.hd_cloud
     end
 
-    def initialize(key, pass, source_id = nil, destination_id = nil)
-      @source_id = source_id || hd_cloud_stores[:source_id]
-      @destination_id = destination_id || hd_cloud_stores[:destination_id]
-      self.class.default_params 'job[source_id]' => source_id, 'job[destination_id]' => destination_id
-      self.class.basic_auth key, pass
+    def hd_cloud
+      HD_CLOUD || {}
+    end
+
+    def initialize
+      self.class.basic_auth hd_cloud[:key], hd_cloud[:pass]
+      self.class.default_params 'job[source_id]' => hd_cloud[:source_id], 'job[destination_id]' => hd_cloud[:destination_id]
     end
 
     def create_job(file_name, encoding_profile_ids = [])
