@@ -17,8 +17,8 @@ module HDCloud
       self.class.default_params 'job[source_id]' => hd_cloud[:source_id], 'job[destination_id]' => hd_cloud[:destination_id]
     end
 
-    def create_job(file_name, encoding_profile_ids = [])
-      response = self.class.post('/jobs.json', :query => { 'files[]' => file_name, 'encoding_profile_ids[]' => encoding_profile_ids })
+    def create_job(file_name)
+      response = self.class.post('/jobs.json', :query => { 'files[]' => file_name, 'encoding_profile_ids[]' => hd_cloud[:encoding_profile_ids] })
       raise_errors(response)
       response
     end
